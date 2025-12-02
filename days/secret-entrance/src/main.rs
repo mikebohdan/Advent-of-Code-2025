@@ -1,22 +1,22 @@
 use anyhow::Result;
-use clap::Parser;
+use cli_app;
 
-mod cli;
 mod password;
 
-fn main() -> Result<()> {
-  let args = cli::Args::parse();
+fn main() -> Result<()> { cli_app::run(App {}) }
 
-  match args.part {
-    cli::Part::First => println!(
-      "Password: {:?}",
-      password::find_password(password::count_zeroes, args.file)?
-    ),
-    cli::Part::Second => println!(
-      "Password: {:?}",
-      password::find_password(password::count_zeroes_2, args.file)?
-    ),
+#[derive(Clone, Copy)]
+struct App {}
+
+impl cli_app::App for App {
+  type Input = Box<dyn Iterator<Item = password::Rotation>>;
+  type Output = usize;
+
+  fn parse_input(self, buf: std::io::BufReader<std::fs::File>) -> Result<Self::Input> {
+    Ok(Box::new(password::parse_rotations(buf)?))
   }
 
-  Ok(())
+  fn solve_part_one(self, input: Self::Input) -> Result<Self::Output> { Ok(password::count_zeroes(input)) }
+
+  fn solve_part_two(self, input: Self::Input) -> Result<Self::Output> { Ok(password::count_zeroes_2(input)) }
 }

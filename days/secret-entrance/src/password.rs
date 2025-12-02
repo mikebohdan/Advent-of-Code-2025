@@ -1,6 +1,5 @@
 use std::fs::File;
 use std::io::{BufRead, BufReader};
-use std::path::PathBuf;
 
 use anyhow::Result;
 
@@ -58,13 +57,13 @@ impl Dial {
   }
 }
 
-pub fn find_password<F>(count_zeroes: F, path: PathBuf) -> Result<usize>
-where
-  F: Fn(Box<dyn Iterator<Item = Rotation>>) -> usize,
-{
-  let rotations = parse_rotations(path)?;
-  Ok(count_zeroes(Box::new(rotations)))
-}
+// pub fn find_password<F>(count_zeroes: F, path: PathBuf) -> Result<usize>
+// where
+//   F: Fn(Box<dyn Iterator<Item = Rotation>>) -> usize,
+// {
+//   let rotations = parse_rotations(path)?;
+//   Ok(count_zeroes(Box::new(rotations)))
+// }
 
 pub fn count_zeroes(rotations: Box<dyn Iterator<Item = Rotation>>) -> usize {
   let mut dial = Dial::new();
@@ -92,12 +91,9 @@ pub fn count_zeroes_2(rotations: Box<dyn Iterator<Item = Rotation>>) -> usize {
   zeros
 }
 
-fn parse_rotations(path: PathBuf) -> Result<impl Iterator<Item = Rotation>> {
-  let file = File::open(path)?;
-  let reader = BufReader::new(file);
-
+pub fn parse_rotations(buf: BufReader<File>) -> Result<impl Iterator<Item = Rotation>> {
   Ok(
-    reader
+    buf
       .lines()
       .map(|line| line.expect("cannot read line."))
       .map(Rotation::from),
