@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["crates/cli-app", "gift-shop", "lobby", "secret-entrance"]
+members = ["crates/cli-app", "gift-shop", "lobby", "printing-department", "secret-entrance"]
 
 [workspace.package]
 edition = "2024"

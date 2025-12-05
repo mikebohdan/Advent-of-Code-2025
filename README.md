@@ -10,6 +10,7 @@ To save Christmas, the Elves need you to finish decorating the North Pole by Dec
 
 Collect stars by solving puzzles. Two puzzles will be made available on each day; the second puzzle is unlocked when you complete the first. Each puzzle grants one star. Good luck!
 
-- [Day 1: Secret Entrance](secret-entrance/README.md)
-- [Day 2: Gift Shop](gift-shop/README.md)
-- [Day 3: Lobby](lobby/README.md)
+- [Day 1: Secret Entrance](./secret-entrance/README.md)
+- [Day 2: Gift Shop](./gift-shop/README.md)
+- [Day 3: Lobby](./lobby/README.md)
+- [Day 4: Printing Department](./printing-department/README.md)
